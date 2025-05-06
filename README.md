@@ -95,9 +95,24 @@ You manage the contents of the directory you mount to `/opt/nagios/etc`. Common 
 **Important:** Always validate your Nagios configuration before restarting the container or Nagios service:
 `/usr/sbin/nagios4 -v /opt/nagios/etc/nagios.cfg` (you can run this inside the container using `docker exec`).
 
+## Makefile Convenience Targets
+
+This repository includes a `Makefile` to simplify common Docker operations:
+
+- `make build`: Builds the Docker image (`nagios-thruk-app`).
+- `make verify`: Builds the image (if needed) and runs the Nagios configuration verification (`nagios4 -v`) using the template configuration inside a temporary container.
+- `make run`: Builds the image (if needed) and starts a new container (`nagios-thruk`) in detached mode, mapping host port `9095` to the container's port `80`.
+- `make stop`: Stops the running container.
+- `make rm`: Stops and removes the container.
+- `make up`: A combination of `rm` and `run`. Stops/removes any existing container, builds the image, and starts a new one. This is the default target (`make` or `make all`).
+- `make logs`: Tails the logs of the running container.
+- `make clean`: Stops/removes the container and then removes the Docker image.
+
+Adjust the `HOST_PORT` variable in the `Makefile` if you need to use a different port than `9095`.
+
 ## Development
 
-To build the image locally:
+To build the image locally *without* using the Makefile:
 
 ```bash
 git clone https://github.com/your-org/nagios-thruk
