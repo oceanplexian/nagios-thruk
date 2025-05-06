@@ -36,6 +36,7 @@ docker run -d --name nagios-thruk \
 **Volume Explanations:**
 
 - `-v ./my-nagios-config:/opt/nagios/etc`: **Crucial.** Mount your local directory containing `nagios.cfg`, `cgi.cfg`, and the `objects/` subdirectory here. The container expects your Nagios object definitions (hosts, services, commands, etc.) to reside within `/opt/nagios/etc/objects/`.
+  *Note: If this volume is empty or not mounted, the entrypoint script will generate a basic default configuration monitoring `localhost` to ensure Nagios starts.*
 - `-v ./nagios-data:/opt/nagios/var`: **Recommended.** Mount a persistent volume here to retain Nagios runtime data like `status.dat`, `retention.dat`, and the `rw` directory (command pipe, livestatus socket) across container restarts.
 - `-v ./nagios-logs:/var/log/nagios4`: **Recommended.** Mount a persistent volume for Nagios log files (`nagios.log`, `nagios.debug`) and log archives.
 - `-v ./nrdp-spool:/var/spool/nagios/nrdp`: **Optional.** If using the included `nrdp-micro` service, mount a directory here where `nrdp-micro` will look for incoming passive check result files.
