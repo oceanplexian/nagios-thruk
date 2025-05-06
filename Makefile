@@ -37,6 +37,7 @@ run: build
 	@echo "Running new container '$(CONTAINER_NAME)'..."
 	@docker run -d --name $(CONTAINER_NAME) \
 		-p $(HOST_PORT):$(CONTAINER_PORT) \
+		-e DEBUG=1 \
 		$(IMAGE_NAME)
 	# Optional: Mount local configs or Nagios object definitions
 	# -v ./etc/objects:/etc/nagios4/objects \

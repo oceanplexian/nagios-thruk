@@ -2,7 +2,7 @@ server:
   listen_addr: ":8080"
 
 storage:
-  output_dir: "/var/spool/nagios/nrdp"
+  output_dir: "/var/lib/nagios4/spool/checkresults"
   group_name: "root"  # Changed from nagios to root as we run as root
   max_files: 10000
   min_disk_space: 500
@@ -11,19 +11,12 @@ database:
   path: "/var/lib/nrdp_micro/status.db"
 
 nagios:
-  config_dir: "/etc/nagios/conf.d/nrdp_hosts"
-  check_interval: 5
-  retry_interval: 1
-  max_check_attempts: 3
-  check_period: "24x7"
-  notification_period: "24x7"
-  contacts: "nagiosadmin"
-  contact_groups: "admins"
+  output_dir: "/opt/nagios/etc/dynamic"
   host_template: "linux-server"        # Make sure this template exists in your Nagios config
   service_template: "generic-service"  # Make sure this template exists in your Nagios config
-  generate_interval: 60
-  host_ttl: 1440
-  service_ttl: 1440
+  generation_interval: "60s"           # Use duration format (e.g., 60s, 5m)
+  stale_threshold: "24h"             # Use duration format (e.g., 15m, 6h)
+  reload_command: "/usr/bin/supervisorctl signal HUP nagios" # Command to reload Nagios
 
 logging:
   level: "info"
