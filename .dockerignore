@@ -1,0 +1,15 @@
+# Ignore version control
+.git/
+
+# Ignore IDE/editor files
+.vscode/
+*.swp
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Potentially ignore large data or log files if not needed in context
+# *.log
+# data/ 

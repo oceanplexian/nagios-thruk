@@ -1,0 +1,3 @@
+[submodule "nrdp-micro"]
+	path = nrdp-micro
+	url = https://github.com/oceanplexian/nrdp-micro.git
